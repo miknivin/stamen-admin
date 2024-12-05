@@ -8,7 +8,7 @@ import cors from 'cors';
 // CORS configuration
 const corsOptions = {
   origin: (origin, callback) => {
-    if (origin === 'http://localhost:3000' || origin === 'http://localhost:3001') {
+    if (origin === process.env.NEXT_PUBLIC_CORS_ALLOWED_ORIGIN || origin === 'http://localhost:3001') {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'), false);
@@ -50,7 +50,7 @@ handler.post(async (req, res) => {
 });
 
 handler.all((req, res) => {
-  const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+  const allowedOrigins = [process.env.NEXT_PUBLIC_CORS_ALLOWED_ORIGIN, 'http://localhost:3001'];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {

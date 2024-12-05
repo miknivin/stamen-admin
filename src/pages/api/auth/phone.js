@@ -6,7 +6,7 @@ import cors from 'cors';
 
 // CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:3001', // Adjust this to the front-end origin
+  origin: process.env.NEXT_PUBLIC_CORS_ALLOWED_ORIGIN, // Adjust this to the front-end origin
   credentials: true, // Allow cookies to be sent with requests
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -95,7 +95,7 @@ handler.post(async (req, res) => {
 
 // Handle OPTIONS preflight requests
 handler.all((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001'); // Set the allowed origin
+  res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_CORS_ALLOWED_ORIGIN); // Set the allowed origin
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)

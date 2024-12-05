@@ -27,7 +27,9 @@ handler.get(authenticateUser, async (req, res) => {
 handler.patch(authenticateUser, async (req, res) => {
   try {
     await dbConnect();
-
+    if (req?.user.roles!=='admin') {
+      return res.status(401).json({ success: false, message: 'You are not allowed' });
+    }
     const { id } = req.query;
     const { orderStatus } = req.body;
 
@@ -61,7 +63,9 @@ handler.patch(authenticateUser, async (req, res) => {
 handler.delete(authenticateUser, async (req, res) => {
   try {
     await dbConnect();
-
+    if (req?.user.roles!=='admin') {
+      return res.status(401).json({ success: false, message: 'You are not allowed' });
+    }
     const { id } = req.query;
 
     const deletedOrder = await Order.findByIdAndDelete(id);

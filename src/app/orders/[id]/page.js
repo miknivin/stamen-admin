@@ -4,6 +4,7 @@ import UpdateOrder from '@/components/updateOrder';
 import { fetchOrderDetails } from '@/utils/orderApi'; // Assuming this function is defined to fetch order details
 import DeleteOrder from '@/components/DeleteOrder';
 import Loading from '@/components/Loading';
+import Link from 'next/link';
 
 export default function OrderDetailsPage({ params }) {
   const { id } = params;
@@ -55,6 +56,27 @@ export default function OrderDetailsPage({ params }) {
   return (
     <div className="max-w-screen-xl mx-auto p-4">
       <div className="shadow-md rounded-lg p-6">
+        <div className='flex justify-between'>
+          <Link href={'/orders'} className='btn bg-gray-400 dark:bg-gray-700 rounded-full p-3'>
+          <svg
+              className="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width={24}
+              height={24}
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 12h14M5 12l4-4m-4 4 4 4"
+              />
+          </svg>
+          </Link>
+        </div>
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold mb-4">Order Details</h1>
           <DeleteOrder id={order._id}/>
@@ -66,7 +88,7 @@ export default function OrderDetailsPage({ params }) {
             <h2 className="text-xl font-semibold mb-2">Order Information</h2>
             <p>Order ID: {order._id}</p>
             <p>Status: {order.orderStatus}</p>
-            <p>Total Amount: ${order.totalAmount?.toFixed(2)}</p>
+            <p>Total Amount: ₹{order.totalAmount?.toFixed(2)}</p>
           </div>
 
           {/* Shipping Details */}
@@ -101,9 +123,9 @@ export default function OrderDetailsPage({ params }) {
                 <tr key={item._id}>
                   <td className="border p-2">{item.name}</td>
                   <td className="border p-2 text-center">{item.quantity}</td>
-                  <td className="border p-2 text-right">${parseFloat(item.price)?.toFixed(2)}</td>
+                  <td className="border p-2 text-right">₹{parseFloat(item.price)?.toFixed(2)}</td>
                   <td className="border p-2 text-right">
-                    ${(parseFloat(item.price) * item.quantity)?.toFixed(2)}
+                    ₹{(parseFloat(item.price) * item.quantity)?.toFixed(2)}
                   </td>
                 </tr>
               ))}

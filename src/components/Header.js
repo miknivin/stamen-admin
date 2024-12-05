@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 export default function Header() {
   const router = useRouter();
@@ -30,8 +31,8 @@ export default function Header() {
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-          <a
-            href="#"
+          <Link
+            href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <Image
@@ -41,7 +42,7 @@ export default function Header() {
               className="h-8"
               alt=""
             />
-          </a>
+          </Link>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             <button
               onClick={handleLogout}
