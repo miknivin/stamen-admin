@@ -24,7 +24,8 @@ handler.post(async (req, res) => {
   try {
     await dbConnect();
     const { name, phone, password, accessToken } = req.body;
-
+    console.log(phone);
+    
     // Validate input
     if (!name || !phone || !password || !accessToken) {
       return res.status(400).json({ 
@@ -38,6 +39,8 @@ handler.post(async (req, res) => {
 
     if (existingUser) {
       // User already exists, generate JWT token and send it back
+      console.log('existing');
+      
       const token = jwt.sign(
         { id: existingUser._id }, 
         process.env.JWT_SECRET, 
@@ -45,7 +48,7 @@ handler.post(async (req, res) => {
       );
 
       // Set cookie
-      res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=Strict`);
+      res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=None; Secure`);
 
       return res.status(200).json({ 
         success: true, 
@@ -73,7 +76,7 @@ handler.post(async (req, res) => {
     );
 
     // Set cookie
-    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=Strict`);
+    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=None; Secure`);
 
     res.status(201).json({ 
       success: true, 
