@@ -48,7 +48,7 @@ handler.post(async (req, res) => {
       );
 
       // Set cookie
-      res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=Strict`);
+      res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=None; Secure`);
 
       return res.status(200).json({ 
         success: true, 
@@ -76,7 +76,7 @@ handler.post(async (req, res) => {
     );
 
     // Set cookie
-    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=Strict`);
+    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=None; Secure`);
 
     res.status(201).json({ 
       success: true, 
